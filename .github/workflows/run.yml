@@ -9,6 +9,10 @@ on:
       task:
         description: "task"
         required: true
+      ref:
+        description: "branch"
+        required: false
+        default: "main"
 
 jobs:
   plan:
@@ -20,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - id: plan
         working-directory: code
         run: uv run scripts/runner.py plan "${{ inputs.task }}"
@@ -40,7 +44,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - working-directory: code
         run: uv run scripts/runner.py work "${{ inputs.task }}" "${{ matrix.n }}" 1
 
@@ -59,7 +63,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - working-directory: code
         run: uv run scripts/runner.py work "${{ inputs.task }}" "${{ matrix.n }}" 1
 
@@ -74,7 +78,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - id: b
         working-directory: code
         run: uv run scripts/runner.py blocked "${{ inputs.task }}"
@@ -94,7 +98,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - working-directory: code
         run: uv run scripts/runner.py work "${{ inputs.task }}" "${{ matrix.n }}" 2
 
@@ -109,7 +113,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - id: b
         working-directory: code
         run: uv run scripts/runner.py blocked "${{ inputs.task }}"
@@ -129,7 +133,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - working-directory: code
         run: uv run scripts/runner.py work "${{ inputs.task }}" "${{ matrix.n }}" 3
 
@@ -144,7 +148,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - id: b
         working-directory: code
         run: uv run scripts/runner.py blocked "${{ inputs.task }}"
@@ -164,7 +168,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - working-directory: code
         run: uv run scripts/runner.py work "${{ inputs.task }}" "${{ matrix.n }}" 4
 
@@ -179,7 +183,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - id: b
         working-directory: code
         run: uv run scripts/runner.py blocked "${{ inputs.task }}"
@@ -199,7 +203,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - working-directory: code
         run: uv run scripts/runner.py work "${{ inputs.task }}" "${{ matrix.n }}" 5
 
@@ -211,6 +215,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
-        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}"}
+        with: {repo-key: "${{ secrets.PRIVATE_REPO_KEY }}", access-key: "${{ secrets.R2_ACCESS_KEY }}", secret-key: "${{ secrets.R2_SECRET_KEY }}", ref: "${{ inputs.ref }}"}
       - working-directory: code
         run: uv run scripts/runner.py finish "${{ inputs.task }}"
