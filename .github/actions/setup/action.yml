@@ -1,0 +1,29 @@
+name: setup
+description: "The private code in code/ (read-only deploy key), its Python packages, the bucket keys, and tippecanoe"
+inputs:
+  repo-key: {required: true}
+  access-key: {required: true}
+  secret-key: {required: true}
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/tippecanoe
+    - uses: actions/checkout@v7
+      with:
+        repository: itapai/predivna-zemlja
+        ssh-key: ${{ inputs.repo-key }}
+        persist-credentials: false
+        path: code
+    - uses: astral-sh/setup-uv@v10.2.0
+      with: {working-directory: code}
+    - shell: bash
+      working-directory: code
+      run: uv sync --frozen --quiet
+    - shell: bash
+      working-directory: code
+      run: |
+        cat > config/local.yaml <<EOF2
+        remote:
+          access_key: ${{ inputs.access-key }}
+          secret_key: ${{ inputs.secret-key }}
+        EOF2

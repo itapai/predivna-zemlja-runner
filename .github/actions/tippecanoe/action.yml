@@ -1,0 +1,23 @@
+name: tippecanoe
+description: "tippecanoe and tile-join on PATH: built from source once, then restored from the cache"
+inputs:
+  version: {required: false, default: "2.79.0"}
+runs:
+  using: composite
+  steps:
+    - id: cache
+      uses: actions/cache@v5
+      with:
+        path: ~/.local/tippecanoe
+        key: tippecanoe-${{ inputs.version }}-${{ runner.os }}-${{ runner.arch }}
+    - name: build tippecanoe ${{ inputs.version }}
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        git clone --depth 1 --branch "${{ inputs.version }}" https://github.com/felt/tippecanoe.git /tmp/tippecanoe
+        make -C /tmp/tippecanoe -j"$(nproc)"
+        make -C /tmp/tippecanoe install PREFIX="$HOME/.local/tippecanoe"
+    - shell: bash
+      run: |
+        echo "$HOME/.local/tippecanoe/bin" >> "$GITHUB_PATH"
+        "$HOME/.local/tippecanoe/bin/tippecanoe" --version
